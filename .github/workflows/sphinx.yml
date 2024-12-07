@@ -1,0 +1,37 @@
+name: "Sphinx: Render docs"
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    defaults:
+      run:
+        shell: bash -el {0}
+        # GitHub configures `bash` to ignore ~/.bashrc and ~/.profile, but
+        # we can avoid this by using `bash -el {0}`
+        # see https://github.com/marketplace/actions/setup-miniconda and https://github.com/orgs/community/discussions/25061
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install Miniforge with dependencies
+      uses: conda-incubator/setup-miniconda@v3
+      with:
+        environment-file: environment.yml
+        miniforge-version: latest
+        use-mamba: true
+        auto-activate-base: false
+    - name: Build HTML
+      run: make html
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: html-docs
+        path: build/html/
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/master'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: build/html
