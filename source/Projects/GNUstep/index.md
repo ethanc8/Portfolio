@@ -43,7 +43,7 @@ UIKit is the iOS/iPadOS and tvOS UI framework, so there are thousands of UIKit a
 
 <https://github.com/ethanc8/AutoBindings>
 
-In this project, I built a binding generator for Objective-C code. It currently takes the output of the GSDoc documentation generator in order to make the language bindings. It can make correct Objective-C headers and C bindings. I'm currently working on Swift bindings, and also want to work on Python bindings.
+In this project, I built a binding generator for Objective-C code. It currently takes the output of the GSDoc documentation generator in order to make the language bindings. It can make correct Objective-C headers and C bindings. I was planning to make Swift and Python bindings this way, but I realized that since Swift has complicated Objective-C binding functionality for macOS already which would be difficult to implement this way, and since Python is a dynamic language, that this approach is not suitable. However, I am currently planning to make GObject bindings this way.
 
 ### Example 1
 
@@ -88,3 +88,9 @@ int main(int argc, char** argv) {
     return 0;
 }
 ```
+
+## GNUstep packaging with conda
+
+<https://github.com/ethanc8/gnustep-forge-feedstocks>
+
+This project was to package GNUstep with the Conda package manager. Conda makes it much easier to get a working GNUstep environment and to share these environments with others. So far, one can easily get a GNUstep environment up and running, ready to start developing. It would be quite easy to package applications developed in this environment for distribution to end users, and I am working on making that even easier using more modern Conda tools.
